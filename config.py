@@ -8,6 +8,8 @@ from minigpt4.common.registry import registry
 
 CUDA = torch.cuda.is_available()
 
+GPU = 'cuda:{}'.format(args.gpu_id) if CUDA else None
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo")
@@ -35,7 +37,6 @@ cfg = Config(args)
 model_config = cfg.model_cfg
 model_config.device_8bit = args.gpu_id
 model_cls = registry.get_model_class(model_config.arch)
-GPU = 'cuda:{}'.format(args.gpu_id) if CUDA else None
 model = model_cls.from_config(model_config).to(GPU)
 model = torch.compile(model)
 

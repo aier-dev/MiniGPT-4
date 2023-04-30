@@ -16,7 +16,7 @@ from minigpt4.processors import *
 from minigpt4.runners import *
 from minigpt4.tasks import *
 
-from cli import chat
+from config import chat
 
 
 def setup_seeds(config):
