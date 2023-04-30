@@ -28,6 +28,7 @@ def qa(msg):
                               max_new_tokens=max_new_tokens,
                               max_length=max_length)[0]
 
+    llm_message = llm_message.replace('t - shirt', 't-shirt')
     print('\n<', llm_message, end='\n\n')
 
 
