@@ -46,7 +46,6 @@ def gradio_reset(chat_state, img_list):
 
 
 def upload_img(gr_img, text_input, chat_state):
-    print('gr_img', gr_img)
     if gr_img is None:
         return None, None, gr.update(interactive=True), chat_state, None
     chat_state = CONV_VISION.copy()
@@ -62,12 +61,15 @@ def gradio_ask(user_message, chatbot, chat_state):
     if len(user_message) == 0:
         return gr.update(interactive=True,
                          placeholder='Input should not be empty!'), chatbot, chat_state
+    print('\nask', user_message, '\nchat_state', chat_state)
     chat.ask(user_message, chat_state)
     chatbot = chatbot + [[user_message, None]]
     return '', chatbot, chat_state
 
 
 def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
+    print('\nanswer', chat_state, '\nimg_list', img_list, '\nnum_beams', num_beams, '\ntemperature',
+          temperature)
     llm_message = chat.answer(conv=chat_state,
                               img_list=img_list,
                               num_beams=num_beams,
@@ -118,6 +120,7 @@ with gr.Blocks() as demo:
 
         with gr.Column():
             chat_state = gr.State()
+            print('chat_state', chat_state)
             img_list = gr.State()
             chatbot = gr.Chatbot(label='MiniGPT-4')
             text_input = gr.Textbox(label='User',
