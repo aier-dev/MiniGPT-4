@@ -46,7 +46,7 @@ def run(fp, li):
 if __name__ == '__main__':
     imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
-        'Reply title for this image, title begin with [ and end with ]',
+        'Create a name for this image',
         'Generate a detailed description for this image',
         'Tag this image, tags are separated by commas',
     ]
