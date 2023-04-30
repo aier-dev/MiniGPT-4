@@ -7,12 +7,13 @@ from PIL import Image
 IMGLI = []
 STATE = CONV_VISION.copy()
 
+
 def qa(msg):
-  print('\n>', msg)
+    print('\n>', msg)
     chat.ask(msg, STATE)
 
     # num_beams=3 表示我们在解码阶段保留 3 个最有可能的翻译候选者。
-    num_beams = 3
+    num_beams = 1
 
     # temperature 创意程度, 0.8到2之间
     temperature = 1
@@ -29,25 +30,25 @@ def qa(msg):
 
     print('\n<', llm_message, end='\n\n')
 
+
 def run(fp, li):
-  global STATE, IMGLI
-  STATE.messages = []
-  IMGLI = []
-  img = Image.open(fp)
-  chat.upload_img(img, STATE, IMGLI)
-  for msg in li:
-    qa(msg)
+    global STATE, IMGLI
+    print('\n' + fp + '\n')
+    STATE.messages = []
+    IMGLI = []
+    img = Image.open(fp)
+    chat.upload_img(img, STATE, IMGLI)
+    for msg in li:
+        qa(msg)
+
 
 if __name__ == '__main__':
-  imgli = [
-      '/Users/z/Downloads/11.jpeg',
-      '/Users/z/Downloads/12.jpeg'
-      ]
-  qli = [
-      'Create title for the image',
-      'Generate a detailed description for the image',
-      'Tag the picture, tags are separated by commas',
-      ]
+    imgli = ['/Users/z/Downloads/11.jpeg', '/Users/z/Downloads/12.jpeg']
+    qli = [
+        'Create title for the image',
+        'Generate a detailed description for the image',
+        'Tag the picture, tags are separated by commas',
+    ]
 
-  for fp in imgli:
-    run(fp, qli)
+    for fp in imgli:
+        run(fp, qli)
