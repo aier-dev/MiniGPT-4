@@ -1,4 +1,3 @@
-import cli
 import random
 
 import numpy as np
@@ -47,6 +46,7 @@ def gradio_reset(chat_state, img_list):
 
 
 def upload_img(gr_img, text_input, chat_state):
+    print('gr_img', gr_img)
     if gr_img is None:
         return None, None, gr.update(interactive=True), chat_state, None
     chat_state = CONV_VISION.copy()
