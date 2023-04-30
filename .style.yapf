@@ -1,4 +1,3 @@
 [style]
-disable_wrapping = True
 based_on_style = pep8
 indent_width = 4
