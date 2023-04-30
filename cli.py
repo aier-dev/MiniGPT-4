@@ -13,7 +13,7 @@ def qa(msg):
     chat.ask(msg, STATE)
 
     # num_beams=3 表示我们在解码阶段保留 3 个最有可能的翻译候选者。
-    num_beams = 1
+    num_beams = 2
 
     # temperature 创意程度, 0.8到2之间
     temperature = 1
