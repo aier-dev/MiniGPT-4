@@ -16,7 +16,7 @@ def qa(msg):
     num_beams = 2
 
     # temperature 创意程度, 0.8到2之间
-    temperature = 1
+    temperature = 1.1
 
     max_new_tokens = 3000
     max_length = max_new_tokens * 10
@@ -46,9 +46,9 @@ def run(fp, li):
 if __name__ == '__main__':
     imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
-        'Create a perfect title for the image',
-        'Generate a detailed description for the image',
-        'Tag the picture, tags are separated by commas',
+        'Reply title for this image, title begin with [ and end with ]',
+        'Generate a detailed description for this image',
+        'Tag this image, tags are separated by commas',
     ]
 
     for fp in imgli:
