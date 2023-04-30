@@ -1,4 +1,4 @@
-import argparse
+import cli
 import random
 
 import numpy as np
@@ -6,10 +6,8 @@ import torch
 import torch.backends.cudnn as cudnn
 import gradio as gr
 
-from minigpt4.common.config import Config
 from minigpt4.common.dist_utils import get_rank
-from minigpt4.common.registry import registry
-from minigpt4.conversation.conversation import Chat, CONV_VISION
+from minigpt4.conversation.conversation import CONV_VISION
 
 # imports modules for registration
 from minigpt4.datasets.builders import *
@@ -18,27 +16,7 @@ from minigpt4.processors import *
 from minigpt4.runners import *
 from minigpt4.tasks import *
 
-CUDA = torch.cuda.is_available()
-
-
-def parse_args():
-    parser = argparse.ArgumentParser(description="Demo")
-    parser.add_argument("--cfg-path",
-                        required=True,
-                        help="path to configuration file.")
-    parser.add_argument("--gpu-id",
-                        type=int,
-                        default=0,
-                        help="specify the gpu to load the model.")
-    parser.add_argument(
-        "--options",
-        nargs="+",
-        help="override some settings in the used config, the key-value pair "
-        "in xxx=yyy format will be merged into config file (deprecate), "
-        "change to --cfg-options instead.",
-    )
-    args = parser.parse_args()
-    return args
+from cli import chat
 
 
 def setup_seeds(config):
@@ -51,27 +29,6 @@ def setup_seeds(config):
     cudnn.benchmark = False
     cudnn.deterministic = True
 
-
-# ========================================
-#             Model Initialization
-# ========================================
-
-print('Initializing Chat')
-args = parse_args()
-cfg = Config(args)
-
-model_config = cfg.model_cfg
-model_config.device_8bit = args.gpu_id
-model_cls = registry.get_model_class(model_config.arch)
-GPU = 'cuda:{}'.format(args.gpu_id) if CUDA else None
-model = model_cls.from_config(model_config).to(GPU)
-model = torch.compile(model)
-
-vis_processor_cfg = cfg.datasets_cfg.cc_sbu_align.vis_processor.train
-vis_processor = registry.get_processor_class(
-    vis_processor_cfg.name).from_config(vis_processor_cfg)
-chat = Chat(model, vis_processor, device=GPU)
-print('Initialization Finished')
 
 # ========================================
 #             Gradio Setting
@@ -94,17 +51,17 @@ def upload_img(gr_img, text_input, chat_state):
         return None, None, gr.update(interactive=True), chat_state, None
     chat_state = CONV_VISION.copy()
     img_list = []
-    llm_message = chat.upload_img(gr_img, chat_state, img_list)
-    return gr.update(interactive=False), gr.update(
-        interactive=True, placeholder='Type and press Enter'), gr.update(
-            value="Start Chatting", interactive=False), chat_state, img_list
+    chat.upload_img(gr_img, chat_state, img_list)
+    return gr.update(interactive=False), gr.update(interactive=True,
+                                                   placeholder='Type and press Enter'), gr.update(
+                                                       value="Start Chatting",
+                                                       interactive=False), chat_state, img_list
 
 
 def gradio_ask(user_message, chatbot, chat_state):
     if len(user_message) == 0:
-        return gr.update(
-            interactive=True,
-            placeholder='Input should not be empty!'), chatbot, chat_state
+        return gr.update(interactive=True,
+                         placeholder='Input should not be empty!'), chatbot, chat_state
     chat.ask(user_message, chat_state)
     chatbot = chatbot + [[user_message, None]]
     return '', chatbot, chat_state
@@ -163,24 +120,19 @@ with gr.Blocks() as demo:
             chat_state = gr.State()
             img_list = gr.State()
             chatbot = gr.Chatbot(label='MiniGPT-4')
-            text_input = gr.Textbox(
-                label='User',
-                placeholder='Please upload your image first',
-                interactive=False)
+            text_input = gr.Textbox(label='User',
+                                    placeholder='Please upload your image first',
+                                    interactive=False)
 
-    upload_button.click(
-        upload_img, [image, text_input, chat_state],
-        [image, text_input, upload_button, chat_state, img_list])
+    upload_button.click(upload_img, [image, text_input, chat_state],
+                        [image, text_input, upload_button, chat_state, img_list])
 
-    text_input.submit(
-        gradio_ask, [text_input, chatbot, chat_state],
-        [text_input, chatbot, chat_state]).then(
-            gradio_answer,
-            [chatbot, chat_state, img_list, num_beams, temperature],
-            [chatbot, chat_state, img_list])
-    clear.click(
-        gradio_reset, [chat_state, img_list],
-        [chatbot, image, text_input, upload_button, chat_state, img_list],
-        queue=False)
+    text_input.submit(gradio_ask,
+                      [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
+                          gradio_answer, [chatbot, chat_state, img_list, num_beams, temperature],
+                          [chatbot, chat_state, img_list])
+    clear.click(gradio_reset, [chat_state, img_list],
+                [chatbot, image, text_input, upload_button, chat_state, img_list],
+                queue=False)
 
 demo.launch(share=True, enable_queue=True)
