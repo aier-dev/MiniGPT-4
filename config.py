@@ -5,6 +5,9 @@ import argparse
 from minigpt4.conversation.conversation import Chat
 from minigpt4.common.config import Config
 from minigpt4.common.registry import registry
+from os.path import abspath, dirname, join
+
+ROOT = dirname(abspath(__file__))
 
 CUDA = torch.cuda.is_available()
 
@@ -13,7 +16,7 @@ GPU = 'cuda:{}'.format(args.gpu_id) if CUDA else None
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo")
-    parser.add_argument("--cfg-path", required=True, help="path to configuration file.")
+    parser.add_argument("--cfg-path", help="path to configuration file.")
     parser.add_argument("--gpu-id", type=int, default=0, help="specify the gpu to load the model.")
     parser.add_argument(
         "--options",
@@ -23,6 +26,7 @@ def parse_args():
         "change to --cfg-options instead.",
     )
     args = parser.parse_args()
+    args.cfg_path = args.cfg_path or join(ROOT, 'eval_configs/minigpt4_eval.yaml')
     return args
 
 
@@ -32,6 +36,7 @@ def parse_args():
 
 print('Initializing Chat')
 args = parse_args()
+print(args)
 cfg = Config(args)
 
 model_config = cfg.model_cfg

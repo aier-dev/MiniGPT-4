@@ -76,6 +76,7 @@ def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
                               temperature=temperature,
                               max_new_tokens=3000,
                               max_length=20000)[0]
+    print('\nllm_message', llm_message)
     chatbot[-1][1] = llm_message
     return chatbot, chat_state, img_list
 
@@ -120,7 +121,7 @@ with gr.Blocks() as demo:
 
         with gr.Column():
             chat_state = gr.State()
-            print('chat_state', chat_state)
+            print('\ngr.Column chat_state', chat_state)
             img_list = gr.State()
             chatbot = gr.Chatbot(label='MiniGPT-4')
             text_input = gr.Textbox(label='User',
