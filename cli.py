@@ -43,7 +43,7 @@ def run(fp, li):
 
 
 if __name__ == '__main__':
-    imgli = ['/Users/z/Downloads/12.jpeg', '/Users/z/Downloads/11.jpg']
+    imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
         'Create a perfect title for the image',
         'Generate a detailed description for the image',
