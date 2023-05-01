@@ -29,6 +29,14 @@ def qa(msg):
                               max_length=max_length)[0]
 
     llm_message = llm_message.replace('t - shirt', 't-shirt').replace('</s>', '').replace('<s>', '')
+    for i in [
+            'This image depicts ',
+            'This is an image of ',
+    ]:
+        if llm_message.startswith(i):
+            llm_message = llm_message[len(i):]
+            break
+
     print('\n<', llm_message, end='\n\n')
 
 
