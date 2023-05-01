@@ -54,8 +54,8 @@ def run(fp, li):
 if __name__ == '__main__':
     imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
-        'Generate a very detailed description for this image, description startswith "The image depicts "',
-        'Describe this image in a simple sentence, description startswith "The image depicts "',
+        'Generate a very detailed description for this image, description start with "The image depicts "',
+        'Describe this image in a simple sentence, description start with "The image depicts "',
         'Tag this image, the tags are separated by commas',
     ]
 
