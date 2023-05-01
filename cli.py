@@ -30,13 +30,8 @@ def qa(msg):
 
     llm_message = llm_message.replace('t - shirt', 't-shirt').replace('</s>', '').replace('<s>', '')
 
-    if llm_message.startswith('This image '):
-        llm_message = 'The ' + llm_message[4:]
     for i in [
-            'The image shows ',
             'The image depicts ',
-            'The image is ',
-            'This is an image of ',
     ]:
         if llm_message.startswith(i):
             llm_message = llm_message[len(i):]
@@ -59,8 +54,8 @@ def run(fp, li):
 if __name__ == '__main__':
     imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
-        'Describe this image in a simple sentence, description startswith "The image depicts "',
         'Generate a very detailed description for this image, description startswith "The image depicts "',
+        'Describe this image in a simple sentence, description startswith "The image depicts "',
         'Tag this image, the tags are separated by commas',
     ]
 
