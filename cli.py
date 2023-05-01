@@ -30,10 +30,13 @@ def qa(msg):
 
     llm_message = llm_message.replace('t - shirt', 't-shirt').replace(
         '</s>', '').replace('<s>', '')
+
+    if llm_message.startswith('This image '):
+        llm_message = 'The ' + llm_message[4:]
     for i in [
             'The image shows ',
-            'This image depicts ',
-            'This image is ',
+            'The image depicts ',
+            'The image is ',
             'This is an image of ',
     ]:
         if llm_message.startswith(i):
