@@ -55,7 +55,9 @@ def run(fp, li):
 
 
 if __name__ == '__main__':
-    imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
+    imgli = []
+    for i in range(1, 10):
+        imgli.append('/Users/z/art/MiniGPT-4/%s.jpg' % i)
     qli = [
         'Generate a very detailed description for this image, description start with "This image shows "',
         'Describe this image in a simple sentence, description start with "The image depicts "',
