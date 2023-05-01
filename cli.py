@@ -13,10 +13,10 @@ def qa(msg):
     chat.ask(msg, STATE)
 
     # num_beams=3 表示我们在解码阶段保留 3 个最有可能的翻译候选者。
-    num_beams = 2
+    num_beams = 1
 
     # temperature 创意程度, 0.8到2之间
-    temperature = 1.1
+    temperature = 1
 
     max_new_tokens = 3000
     max_length = max_new_tokens * 10
@@ -46,10 +46,9 @@ def run(fp, li):
 if __name__ == '__main__':
     imgli = ['/Users/z/Downloads/12.jpg', '/Users/z/Downloads/11.jpg']
     qli = [
+        'Describe this image in a simple sentence',
         'Generate a detailed description for this image',
-        'Tag this image, tags are separated by commas',
-        'Create a name for this image',
-        'Create a amazing novel for this image',
+        'Tag this image, the tags are separated by commas',
     ]
 
     for fp in imgli:
