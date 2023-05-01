@@ -63,6 +63,10 @@ if __name__ == '__main__':
         'Describe this image in a simple sentence, description start with "The image depicts "',
         'Tag this image, the tags are separated by commas',
     ]
-
+    from time import time
+    now = time()
+    n = 0
     for fp in imgli:
         run(fp, qli)
+        n += 1
+        print((time() - now) / n, 's/iter')
