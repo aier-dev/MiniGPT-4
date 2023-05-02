@@ -36,6 +36,7 @@ def qa(msg):
     for i in [
             'The image depicts ',
             'The image shows ',
+            'The image is of ',
     ]:
         if llm_message.startswith(i):
             llm_message = llm_message[len(i):]
