@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import env
 from config import chat
 from minigpt4.conversation.conversation import CONV_VISION
 from PIL import Image
