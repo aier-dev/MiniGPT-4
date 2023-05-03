@@ -16,7 +16,7 @@ ENV PATH /root/.local/share/rtx/bin:$PATH
 RUN rtx install
 
 COPY requirements.txt .
-RUN eval $(rtx env) && pip install -r requirements.txt
+RUN eval $(rtx env) && pip install -r requirements.txt && pip install decord
 
 COPY cli.py .
 COPY config.py .
