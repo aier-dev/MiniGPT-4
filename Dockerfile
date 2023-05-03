@@ -2,7 +2,7 @@ FROM ubuntu
 
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 
-RUN apt-get update && apt-get install -y gcc g++ bash curl git make build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev
+RUN apt-get update && apt-get install -y gcc g++ bash curl git make build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev libbz2-dev liblzma-dev
 
 RUN curl https://rtx.pub/install.sh | sh
 
