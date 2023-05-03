@@ -10,7 +10,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY sh .
+# COPY sh .
+# RUN ./sh/sharp.sh
 
 COPY cli.py .
 COPY config.py .
