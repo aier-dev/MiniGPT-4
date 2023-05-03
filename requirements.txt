@@ -1,6 +1,5 @@
 torch
 numpy
-huggingface-hub
 opencv-python
 omegaconf
 Pillow

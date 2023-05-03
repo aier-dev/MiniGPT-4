@@ -7,7 +7,4 @@ set -ex
 pip install --upgrade pip
 ./sh/sharp.sh
 pip install -r requirements.txt
-
-if [ ! -d "model" ]; then
-  ./down.py
-fi
+./down.sh
