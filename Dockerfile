@@ -20,9 +20,9 @@ RUN eval $(rtx env) && pip install -r requirements.txt && pip install decord
 
 COPY cli.py .
 COPY config.py .
-COPY minigpt4 minigpt4
-COPY eval_configs .
 COPY env.py .
+COPY minigpt4 minigpt4
+COPY eval_configs eval_configs
 
 # COPY sh .
 # RUN ./sh/sharp.sh
