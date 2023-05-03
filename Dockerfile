@@ -8,7 +8,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN python -m venv .py && source ./.py/bin/activate && pip install -r requirements.txt
 
 # COPY sh .
 # RUN ./sh/sharp.sh
