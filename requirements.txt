@@ -1,3 +1,5 @@
+webdataset
+transformers
 pandas
 iopath
 torch
