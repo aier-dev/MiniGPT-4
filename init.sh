@@ -7,6 +7,7 @@ set -ex
 if ! [ -x "$(command -v rtx)" ]; then
   curl https://rtx.pub/install.sh | sh
   echo -e "\neval \"\$(/root/.local/share/rtx/bin/rtx activate -s bash)\"" >>~/.bashrc
+  export PATH=/root/.local/share/rtx/bin:$PATH
   source ~/.bashrc
 fi
 
