@@ -94,7 +94,7 @@ class MiniGPT4(Blip2Base):
                 torch_dtype=torch_dtype,
                 load_in_8bit=CUDA,
                 offload_folder="model/offload",
-                device_map={'': device_8bit} if CUDA else 'auto')
+                device_map={'': device_8bit} if CUDA else None)
         else:
             self.llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model,
