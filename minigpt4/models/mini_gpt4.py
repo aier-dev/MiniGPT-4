@@ -11,7 +11,7 @@ from minigpt4.models.modeling_llama import LlamaForCausalLM
 from gpu import GPU
 from transformers import LlamaTokenizer
 
-#CUDA = torch.cuda.is_available()
+CUDA = torch.cuda.is_available()
 
 
 @registry.register_model("mini_gpt4")
@@ -92,9 +92,9 @@ class MiniGPT4(Blip2Base):
             self.llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model,
                 torch_dtype=torch_dtype,
-                load_in_8bit=GPU,
+                load_in_8bit=CUDA,
                 offload_folder="model/offload",
-                device_map={'': device_8bit} if GPU else 'auto')
+                device_map={'': device_8bit} if CUDA else 'auto')
         else:
             self.llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model,
