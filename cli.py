@@ -61,9 +61,9 @@ if __name__ == '__main__':
     for i in range(10):
         imgli.append('/Users/z/art/MiniGPT-4/img/%s.jpg' % i)
     qli = [
+        'Tag this image, the tags are separated by commas',
         'Generate a very detailed description for this image, description start with "This image shows "',
         'Describe this image in a simple sentence, description start with "The image depicts "',
-        'Tag this image, the tags are separated by commas',
     ]
     from time import time
     now = time()
