@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import torch
 
 if torch.cuda.is_available():
     GPU = 'cuda:{}'.format(args.gpu_id)

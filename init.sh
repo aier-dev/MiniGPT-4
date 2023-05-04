@@ -8,9 +8,9 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 if [[ $(uname) != *"Darwin"* ]]; then
-  pip install eva-decord
-else
   pip install decord
+else
+  pip install eva-decord
 fi
 #./sh/sharp.sh
 ./down.sh
