@@ -1,3 +1,4 @@
+sentencepiece
 accelerate
 iopath
 numpy
