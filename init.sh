@@ -10,7 +10,7 @@ pip install -r requirements.txt
 if [[ $(uname) != *"Darwin"* ]]; then
   pip install decord
 else
-  pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cpu
+  pip3 install --pre torch --index-url https://download.pytorch.org/whl/nightly/cpu
   pip install eva-decord
 fi
 #./sh/sharp.sh
