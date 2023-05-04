@@ -6,15 +6,9 @@ from minigpt4.conversation.conversation import Chat
 from minigpt4.common.config import Config
 from minigpt4.common.registry import registry
 from os.path import abspath, dirname, join
+from gpu import GPU
 
 ROOT = dirname(abspath(__file__))
-
-if torch.cuda.is_available():
-    GPU = 'cuda:{}'.format(args.gpu_id)
-elif torch.backends.mps.is_built():
-    GPU = 'mps'
-else:
-    GPU = None
 
 
 def parse_args():
