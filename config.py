@@ -9,9 +9,12 @@ from os.path import abspath, dirname, join
 
 ROOT = dirname(abspath(__file__))
 
-CUDA = torch.cuda.is_available()
-
-GPU = 'cuda:{}'.format(args.gpu_id) if CUDA else None
+if torch.cuda.is_available():
+    GPU = 'cuda:{}'.format(args.gpu_id)
+elif torch.backends.mps.is_built():
+    GPU = 'mps'
+else:
+    GPU = None
 
 
 def parse_args():

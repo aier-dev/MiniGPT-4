@@ -1,3 +1,5 @@
+iopath
+pandas
 torch
 numpy
 opencv-python
