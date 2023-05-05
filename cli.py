@@ -61,7 +61,7 @@ if __name__ == '__main__':
     for i in range(10):
         imgli.append('/Users/z/art/MiniGPT-4/img/%s.jpg' % i)
     qli = [
-        'Create tags for this image, the tag use one or two words .',
+        'Tag this image, each tag use one or two words, the tags are separated by commas',
         'Generate a very detailed description for this image, description start with "This image shows " .',
         'Describe this image in a simple sentence, description start with "The image depicts " .',
     ]
