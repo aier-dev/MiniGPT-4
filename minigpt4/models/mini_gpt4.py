@@ -87,7 +87,7 @@ class MiniGPT4(Blip2Base):
         self.llama_tokenizer = LlamaTokenizer.from_pretrained(llama_model, use_fast=False)
         self.llama_tokenizer.pad_token = self.llama_tokenizer.eos_token
 
-        torch_dtype = torch.float16 if GPU else torch.float32
+        torch_dtype = torch.float16 if CUDA else torch.float32
         if self.low_resource:
             self.llama_model = LlamaForCausalLM.from_pretrained(
                 llama_model,
